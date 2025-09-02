@@ -11,6 +11,7 @@ import { EnhancedButton } from "@/components/enhanced-button"
 import { FloatingElements } from "@/components/floating-elements"
 import { FloatingDownloadButton } from "@/components/floating-download-button"
 import Link from "next/link"
+import Image from "next/image"
 import { AnimatePresence } from "framer-motion"
 import { SignupForm } from "@/components/signup-form"
 
@@ -134,12 +135,14 @@ export default function FeedaLanding() {
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-900 via-blue-800 to-black rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">F</span>
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-900 to-black bg-clip-text text-transparent">
-              Feeda
-            </span>
+              <Image
+              src="/icon.png"
+              alt="Feeda Logo"
+              width={40}
+              height={40}
+              className="rounded-xl shadow-lg"
+              priority
+            />
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -165,7 +168,7 @@ export default function FeedaLanding() {
               className="text-gray-600 hover:text-blue-900 transition-all duration-300 font-medium relative group"
               whileHover={{ y: -2 }}
             >
-              Join Waitlist
+              Join Now
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
             </motion.a>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -232,7 +235,7 @@ export default function FeedaLanding() {
               onClick={() => setIsMobileMenuOpen(false)}
               whileHover={{ x: 10 }}
             >
-              Join Waitlist
+              Join Now
             </motion.a>
             <motion.div className="pt-4" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <EnhancedButton
@@ -267,7 +270,7 @@ export default function FeedaLanding() {
                 }}
               >
                 <Badge variant="outline" className="mb-4 border-blue-900 text-blue-900 px-4 py-2 text-sm font-semibold">
-                  🚀 Coming Soon
+                  🚀 MVP Close Test Ongoing
                 </Badge>
               </motion.div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
@@ -309,7 +312,7 @@ export default function FeedaLanding() {
                   className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:shadow-blue-500/25"
                   onClick={scrollToWaitlist}
                 >
-                  Join Waitlist
+                  Join Now
                   <motion.div
                     className="ml-2"
                     animate={{ x: [0, 5, 0] }}
@@ -417,7 +420,7 @@ export default function FeedaLanding() {
                       >
                         Feeda App
                       </motion.p>
-                      <p className="text-sm opacity-75 mb-4">Coming Soon</p>
+                      <p className="text-sm opacity-75 mb-4">MVP Close Test</p>
                       <motion.div
                         className="flex justify-center space-x-2"
                         animate={{
@@ -750,7 +753,7 @@ export default function FeedaLanding() {
                   ease: "easeInOut",
                 }}
               >
-                Join 10,000+ users already signed up
+                Join 1,000+ users already signed up
               </motion.p>
             </motion.div>
           </motion.div>
@@ -788,10 +791,14 @@ export default function FeedaLanding() {
             viewport={{ once: true }}
           >
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-900 to-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
-              </div>
-              <span className="text-xl font-bold text-white">Feeda</span>
+                 <Image
+              src="/icon.png"
+              alt="Feeda Logo"
+              width={40}
+              height={40}
+              className="rounded-xl shadow-lg"
+              priority
+            />
             </div>
             <p className="text-gray-400 mb-6">The future of social media is here</p>
             <div className="flex justify-center space-x-6 text-sm text-gray-400">

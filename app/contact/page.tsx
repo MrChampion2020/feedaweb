@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { EnhancedButton } from "@/components/enhanced-button"
 import Link from "next/link"
+import Image from "next/image"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -69,13 +70,13 @@ export default function Contact() {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
+      content: "+234 (903) 015-5327",
       description: "Speak directly with our team",
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
-      content: "San Francisco, CA",
+      content: "Lagos Nigeria",
       description: "Our headquarters location",
     },
   ]
@@ -84,7 +85,7 @@ export default function Contact() {
     {
       question: "When will Feeda be available?",
       answer:
-        "We're currently in beta testing and plan to launch publicly in early 2025. Join our waitlist to be notified first!",
+        "We're currently in beta testing and plan to launch publicly in October 2025. Join our waitlist to be notified first!",
     },
     {
       question: "Is Feeda free to use?",
@@ -115,12 +116,14 @@ export default function Contact() {
           <div className="flex items-center justify-between">
             <Link href="/">
               <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-900 to-black rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">F</span>
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-900 to-black bg-clip-text text-transparent">
-                  Feeda
-                </span>
+                 <Image
+              src="/icon.png"
+              alt="Feeda Logo"
+              width={40}
+              height={40}
+              className="rounded-xl shadow-lg"
+              priority
+            />
               </motion.div>
             </Link>
             <Link href="/">

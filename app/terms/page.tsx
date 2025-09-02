@@ -5,6 +5,7 @@ import { ArrowLeft, FileText, Users, Shield, AlertTriangle, Scale, Gavel } from 
 import { Card, CardContent } from "@/components/ui/card"
 import { EnhancedButton } from "@/components/enhanced-button"
 import Link from "next/link"
+import Image from "next/image"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -103,12 +104,14 @@ export default function TermsOfService() {
           <div className="flex items-center justify-between">
             <Link href="/">
               <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-900 to-black rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">F</span>
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-900 to-black bg-clip-text text-transparent">
-                  Feeda
-                </span>
+                <Image
+              src="/icon.png"
+              alt="Feeda Logo"
+              width={40}
+              height={40}
+              className="rounded-xl shadow-lg"
+              priority
+            />
               </motion.div>
             </Link>
             <Link href="/">
@@ -140,7 +143,7 @@ export default function TermsOfService() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Please read these terms carefully. By using Feeda, you agree to be bound by these conditions.
           </p>
-          <p className="text-sm text-gray-500 mt-4">Last updated: December 2024</p>
+          <p className="text-sm text-gray-500 mt-4">Last updated: September 2025</p>
         </motion.div>
 
         {/* Introduction */}
