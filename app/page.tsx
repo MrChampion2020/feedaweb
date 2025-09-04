@@ -1,25 +1,35 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Smartphone, Users, Zap, Shield, Download, ArrowRight, Star, Globe, MessageCircle } from "lucide-react"
-import { EnhancedButton } from "@/components/enhanced-button"
-import { FloatingElements } from "@/components/floating-elements"
-import { FloatingDownloadButton } from "@/components/floating-download-button"
-import Link from "next/link"
-import Image from "next/image"
-import { AnimatePresence } from "framer-motion"
-import { SignupForm } from "@/components/signup-form"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Smartphone,
+  Users,
+  Zap,
+  Shield,
+  Download,
+  ArrowRight,
+  Star,
+  Globe,
+  MessageCircle,
+} from "lucide-react";
+import { EnhancedButton } from "@/components/enhanced-button";
+import { FloatingElements } from "@/components/floating-elements";
+import { FloatingDownloadButton } from "@/components/floating-download-button";
+import Link from "next/link";
+import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
+import { SignupForm } from "@/components/signup-form";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6 },
-}
+};
 
 const staggerContainer = {
   animate: {
@@ -27,66 +37,69 @@ const staggerContainer = {
       staggerChildren: 0.1,
     },
   },
-}
+};
 
 const scaleOnHover = {
   whileHover: { scale: 1.05 },
   whileTap: { scale: 0.95 },
-}
+};
 
 export default function FeedaLanding() {
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [showSignupForm, setShowSignupForm] = useState(false)
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
 
   const handleWaitlistSignup = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
       // First, try to sign up the user on the Feeda server
-      const signupResponse = await fetch("https://feeda.onrender.com/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          username: email.split("@")[0], // Use email prefix as username
-          fullName: "Feeda User", // Default full name
-          password: "TempPassword123!", // Temporary password
-          securityAnswers: {
-            q1: "default",
-            q2: "default",
-            q3: "default",
-          },
-          deviceId: "web-landing-" + Date.now(),
-        }),
-      })
+      const signupResponse = await fetch(
+        "https://feeda.onrender.com/api/auth/signup",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            username: email.split("@")[0], // Use email prefix as username
+            fullName: "Feeda User", // Default full name
+            password: "TempPassword123!", // Temporary password
+            securityAnswers: {
+              q1: "default",
+              q2: "default",
+              q3: "default",
+            },
+            deviceId: "web-landing-" + Date.now(),
+          }),
+        }
+      );
 
       if (signupResponse.ok) {
-        setIsSubmitted(true)
-        setEmail("")
+        setIsSubmitted(true);
+        setEmail("");
       } else {
-        const errorData = await signupResponse.json()
-        console.error("Signup error:", errorData)
+        const errorData = await signupResponse.json();
+        console.error("Signup error:", errorData);
         // Still show success to user for waitlist purposes
-        setIsSubmitted(true)
-        setEmail("")
+        setIsSubmitted(true);
+        setEmail("");
       }
     } catch (error) {
-      console.error("Error:", error)
+      console.error("Error:", error);
       // Still show success to user for waitlist purposes
-      setIsSubmitted(true)
-      setEmail("")
+      setIsSubmitted(true);
+      setEmail("");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const scrollToWaitlist = () => {
-    setShowSignupForm(true)
-  }
+    setShowSignupForm(true);
+  };
 
   const features = [
     {
@@ -119,7 +132,7 @@ export default function FeedaLanding() {
       title: "Premium Experience",
       description: "Ad-free, distraction-free social networking",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -134,8 +147,11 @@ export default function FeedaLanding() {
         transition={{ duration: 0.6 }}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <motion.div className="flex items-center space-x-3" whileHover={{ scale: 1.05 }}>
-              <Image
+          <motion.div
+            className="flex items-center space-x-3"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Image
               src="/icon.png"
               alt="Feeda Logo"
               width={40}
@@ -171,10 +187,17 @@ export default function FeedaLanding() {
               Join Now
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
             </motion.a>
+
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <EnhancedButton
-                className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={scrollToWaitlist}
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={() => {
+                  // Download APK directly
+                  const link = document.createElement("a");
+                  link.href = "/downloads/feeda-android.apk";
+                  link.download = "feeda-android.apk";
+                  link.click();
+                }}
               >
                 Get Started
               </EnhancedButton>
@@ -190,7 +213,9 @@ export default function FeedaLanding() {
             <div className="w-6 h-6 flex flex-col justify-center items-center">
               <motion.span
                 className="w-6 h-0.5 bg-gray-600 block transition-all duration-300"
-                animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                animate={
+                  isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                }
               />
               <motion.span
                 className="w-6 h-0.5 bg-gray-600 block mt-1 transition-all duration-300"
@@ -198,7 +223,11 @@ export default function FeedaLanding() {
               />
               <motion.span
                 className="w-6 h-0.5 bg-gray-600 block mt-1 transition-all duration-300"
-                animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                animate={
+                  isMobileMenuOpen
+                    ? { rotate: -45, y: -6 }
+                    : { rotate: 0, y: 0 }
+                }
               />
             </div>
           </motion.button>
@@ -208,7 +237,11 @@ export default function FeedaLanding() {
         <motion.div
           className="md:hidden bg-white border-t border-gray-100"
           initial={{ height: 0, opacity: 0 }}
-          animate={isMobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+          animate={
+            isMobileMenuOpen
+              ? { height: "auto", opacity: 1 }
+              : { height: 0, opacity: 0 }
+          }
           transition={{ duration: 0.3 }}
           style={{ overflow: "hidden" }}
         >
@@ -237,17 +270,14 @@ export default function FeedaLanding() {
             >
               Join Now
             </motion.a>
-            <motion.div className="pt-4" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <EnhancedButton
-                className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={() => {
-                  setIsMobileMenuOpen(false)
-                  scrollToWaitlist()
-                }}
-              >
-                Get Started
-              </EnhancedButton>
-            </motion.div>
+            <motion.a
+              href="#download"
+              className="text-gray-600 hover:text-blue-900 transition-all duration-300 font-medium relative group"
+              whileHover={{ y: -2 }}
+            >
+              Get Started
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
+            </motion.a>
           </div>
         </motion.div>
       </motion.header>
@@ -255,7 +285,12 @@ export default function FeedaLanding() {
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 min-h-screen flex items-center">
         <div className="container mx-auto max-w-6xl">
-          <motion.div className="text-center mb-16" variants={staggerContainer} initial="initial" animate="animate">
+          <motion.div
+            className="text-center mb-16"
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+          >
             <motion.div variants={fadeInUp} className="mb-8">
               <motion.div
                 className="inline-block mb-6"
@@ -269,7 +304,10 @@ export default function FeedaLanding() {
                   ease: "easeInOut",
                 }}
               >
-                <Badge variant="outline" className="mb-4 border-blue-900 text-blue-900 px-4 py-2 text-sm font-semibold">
+                <Badge
+                  variant="outline"
+                  className="mb-4 border-blue-900 text-blue-900 px-4 py-2 text-sm font-semibold"
+                >
                   🚀 MVP Close Test Ongoing
                 </Badge>
               </motion.div>
@@ -300,29 +338,39 @@ export default function FeedaLanding() {
                   ease: "easeInOut",
                 }}
               >
-                Experience social media reimagined. Connect, share, and discover in a clean, privacy-focused environment
-                designed for the next generation.
+                Experience social media reimagined. Connect, share, and discover
+                in a clean, privacy-focused environment designed for the next
+                generation.
               </motion.p>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="group">
-                <EnhancedButton
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:shadow-blue-500/25"
-                  onClick={scrollToWaitlist}
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
+              <motion.a
+                href="#download"
+                 className=" flex flex-col sm:flex-row gap-4 border-2 border-gray-300 hover:border-blue-900 hover:bg-blue-50 px-6 py-1 rounded-full transition-all duration-300 hover:shadow-lg"
+
+                whileHover={{ y: -2 }}
+              >
+                Join Now
+                <motion.div
+                  className="ml-2"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                  }}
                 >
-                  Join Now
-                  <motion.div
-                    className="ml-2"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.div>
-                </EnhancedButton>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </motion.a>
+
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <EnhancedButton
                   variant="outline"
                   size="lg"
@@ -403,7 +451,11 @@ export default function FeedaLanding() {
                     >
                       <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                        transition={{
+                          duration: 20,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "linear",
+                        }}
                       >
                         <Smartphone className="w-20 h-20 mx-auto mb-6 opacity-60" />
                       </motion.div>
@@ -473,7 +525,10 @@ export default function FeedaLanding() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      <section
+        id="features"
+        className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+      >
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <motion.div
             className="text-center mb-16"
@@ -505,8 +560,8 @@ export default function FeedaLanding() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Feeda combines cutting-edge technology with intuitive design to create the most advanced social media
-              experience ever built.
+              Feeda combines cutting-edge technology with intuitive design to
+              create the most advanced social media experience ever built.
             </motion.p>
           </motion.div>
 
@@ -518,7 +573,12 @@ export default function FeedaLanding() {
             viewport={{ once: true }}
           >
             {features.map((feature, index) => (
-              <motion.div key={index} variants={fadeInUp} whileHover={{ y: -10, scale: 1.02 }} className="group">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group"
+              >
                 <Card className="h-full border-0 shadow-sm hover:shadow-2xl transition-all duration-500 bg-white/80 backdrop-blur-sm group-hover:bg-white">
                   <CardContent className="p-6 md:p-8">
                     <motion.div
@@ -557,7 +617,10 @@ export default function FeedaLanding() {
       </section>
 
       {/* Download Section */}
-      <section id="download" className="py-20 bg-gradient-to-b from-white to-gray-50 relative">
+      <section
+        id="download"
+        className="py-20 bg-gradient-to-b from-white to-gray-50 relative"
+      >
         <div className="container mx-auto px-4 max-w-4xl">
           <motion.div
             className="text-center mb-12"
@@ -580,7 +643,8 @@ export default function FeedaLanding() {
               Get Early Access
             </motion.h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Download the beta version and be among the first to experience the future of social media
+              Download the beta version and be among the first to experience the
+              future of social media
             </p>
           </motion.div>
 
@@ -600,8 +664,12 @@ export default function FeedaLanding() {
                     transition={{ duration: 0.6 }}
                   >
                     {/* Android Icon */}
-                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.74-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/>
+                    <svg
+                      className="w-8 h-8 text-white"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.74-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z" />
                     </svg>
                   </motion.div>
                   <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3 group-hover:text-green-600 transition-colors duration-300">
@@ -612,10 +680,10 @@ export default function FeedaLanding() {
                   </p>
                   <EnhancedButton
                     onClick={() => {
-                      const link = document.createElement("a")
-                      link.href = "/downloads/feeda-android.apk"
-                      link.download = "feeda-android.apk"
-                      link.click()
+                      const link = document.createElement("a");
+                      link.href = "/downloads/feeda-android.apk";
+                      link.download = "feeda-android.apk";
+                      link.click();
                     }}
                     className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
                   >
@@ -635,8 +703,12 @@ export default function FeedaLanding() {
                     transition={{ duration: 0.6 }}
                   >
                     {/* iOS Icon */}
-                    <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    <svg
+                      className="w-8 h-8 text-white"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                     </svg>
                   </motion.div>
                   <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors duration-300">
@@ -647,10 +719,10 @@ export default function FeedaLanding() {
                   </p>
                   <EnhancedButton
                     onClick={() => {
-                      const link = document.createElement("a")
-                      link.href = "/downloads/feeda-ios.ipa"
-                      link.download = "feeda-ios.ipa"
-                      link.click()
+                      const link = document.createElement("a");
+                      link.href = "/downloads/feeda-ios.ipa";
+                      link.download = "feeda-ios.ipa";
+                      link.click();
                     }}
                     className="w-full bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-800 text-white"
                   >
@@ -669,7 +741,9 @@ export default function FeedaLanding() {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <p className="text-sm text-gray-500">Beta version • For testing purposes only • Requires developer mode</p>
+            <p className="text-sm text-gray-500">
+              Beta version • For testing purposes only • Requires developer mode
+            </p>
           </motion.div>
         </div>
       </section>
@@ -711,7 +785,8 @@ export default function FeedaLanding() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Create your account and be among the first to experience the future of social media.
+              Create your account and be among the first to experience the
+              future of social media.
             </motion.p>
 
             <motion.div
@@ -778,7 +853,11 @@ export default function FeedaLanding() {
       </section>
 
       {/* Signup Form Modal */}
-      <AnimatePresence>{showSignupForm && <SignupForm onClose={() => setShowSignupForm(false)} />}</AnimatePresence>
+      <AnimatePresence>
+        {showSignupForm && (
+          <SignupForm onClose={() => setShowSignupForm(false)} />
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <footer className="bg-black py-12">
@@ -791,31 +870,44 @@ export default function FeedaLanding() {
             viewport={{ once: true }}
           >
             <div className="flex items-center justify-center space-x-2 mb-4">
-                 <Image
-              src="/icon.png"
-              alt="Feeda Logo"
-              width={40}
-              height={40}
-              className="rounded-xl shadow-lg"
-              priority
-            />
+              <Image
+                src="/icon.png"
+                alt="Feeda Logo"
+                width={40}
+                height={40}
+                className="rounded-xl shadow-lg"
+                priority
+              />
             </div>
-            <p className="text-gray-400 mb-6">The future of social media is here</p>
+            <p className="text-gray-400 mb-6">
+              The future of social media is here
+            </p>
             <div className="flex justify-center space-x-6 text-sm text-gray-400">
-              <Link href="/privacy" className="hover:text-white transition-colors">
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link
+                href="/terms"
+                className="hover:text-white transition-colors"
+              >
                 Terms of Service
               </Link>
-              <Link href="/contact" className="hover:text-white transition-colors">
+              <Link
+                href="/contact"
+                className="hover:text-white transition-colors"
+              >
                 Contact
               </Link>
             </div>
-            <p className="text-xs text-gray-500 mt-6">© 2025 Feeda. All rights reserved.</p>
+            <p className="text-xs text-gray-500 mt-6">
+              © 2025 Feeda. All rights reserved.
+            </p>
           </motion.div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
