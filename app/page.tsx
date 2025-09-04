@@ -350,21 +350,26 @@ export default function FeedaLanding() {
             >
               <motion.a
                 href="#download"
-                 className=" flex flex-col sm:flex-row gap-4 border-2 border-gray-300 hover:border-blue-900 hover:bg-blue-50 px-6 py-1 rounded-full transition-all duration-300 hover:shadow-lg"
-
+                className="flex flex-row gap-2    rounded-full transition-all duration-300 hover:shadow-lg"
                 whileHover={{ y: -2 }}
               >
-                Join Now
-                <motion.div
-                  className="ml-2"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Number.POSITIVE_INFINITY,
-                  }}
+                <EnhancedButton
+                  variant="outline"
+                  size="lg"
+                  className="border-2 text-white hover:text-black border-gray-300 hover:border-blue-900 hover:bg-blue-50 px-8 py-4 rounded-full transition-all duration-300 hover:shadow-lg"
                 >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
+                  Join Now
+                  <motion.div
+                    className="ml-1"
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Number.POSITIVE_INFINITY,
+                    }}
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.div>
+                </EnhancedButton>
               </motion.a>
 
               <motion.div
@@ -374,7 +379,7 @@ export default function FeedaLanding() {
                 <EnhancedButton
                   variant="outline"
                   size="lg"
-                  className="border-2 border-gray-300 hover:border-blue-900 hover:bg-blue-50 px-8 py-4 rounded-full transition-all duration-300 hover:shadow-lg"
+                  className="border-2 text-white hover:text-black border-gray-300 hover:border-blue-900 hover:bg-blue-50 px-8 py-4 rounded-full transition-all duration-300 hover:shadow-lg"
                 >
                   Watch Demo
                 </EnhancedButton>
