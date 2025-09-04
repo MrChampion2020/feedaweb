@@ -111,7 +111,7 @@ export function SignupForm({ onClose }: SignupFormProps) {
 
     setIsLoading(true)
     try {
-      const response = await fetch("https://feeda.onrender.com/api/auth/signup", {
+      const response = await fetch("https://feeda-5rz1.onrender.com/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
